@@ -1,13 +1,12 @@
 @echo off
 title Project NB9 - Windows 11 v2 (RAM  16GB)
 color 0A
-chcp 65001 >nul
 
 echo.
-echo  +==========================================+
-echo  |     Project NB9 - Win11 v2 (RAM 16+)    |
-echo  |         Run as Administrator!           |
-echo  +==========================================+
+echo  ==========================================
+echo      Project NB9 - Win11 v2 (RAM 16+)    
+echo          Run as Administrator!           
+echo  ==========================================
 echo.
 
 net session >nul 2>&1
