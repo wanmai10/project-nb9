@@ -1,23 +1,23 @@
 @echo off
-title Project NB9 - Windows 10 v1 (RAM น้อยกว่า 16GB)
+title Project NB9 - Windows 10 v1 (RAM ???????? 16GB)
 color 0A
 chcp 65001 >nul
 
 echo.
-echo  ╔══════════════════════════════════════════╗
-echo  ║     Project NB9 - Win10 v1 (RAM 16-)    ║
-echo  ║         Run as Administrator!           ║
-echo  ╚══════════════════════════════════════════╝
+echo  +==========================================+
+echo  |     Project NB9 - Win10 v1 (RAM 16-)    |
+echo  |         Run as Administrator!           |
+echo  +==========================================+
 echo.
 
 net session >nul 2>&1
 if %errorlevel% neq 0 (
-    echo  [ERROR] กรุณาคลิกขวา - Run as Administrator!
+    echo  [ERROR] Please Run as Administrator!
     pause
     exit
 )
 
-echo  กำลังปรับตั้งค่า กรุณารอสักครู่...
+echo  Optimizing... Please wait...
 echo  ------------------------------------------------
 echo.
 
@@ -37,32 +37,32 @@ reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v MinAnimate /t REG_SZ /d 0 
 echo        Done!
 
 :: 3. Xbox Game Bar
-echo  [3/23] ปิด Xbox Game Bar และ Game DVR...
+echo  [3/23] Disable Xbox Game Bar and Game DVR...
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR" /v AppCaptureEnabled /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKCU\System\GameConfigStore" /v GameDVR_Enabled /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\GameDVR" /v AllowGameDVR /t REG_DWORD /d 0 /f >nul 2>&1
 echo        Done!
 
 :: 4. Background Apps
-echo  [4/23] ปิด Background Apps...
+echo  [4/23] Disable Background Apps...
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v GlobalUserDisabled /t REG_DWORD /d 1 /f >nul 2>&1
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v LetAppsRunInBackground /t REG_DWORD /d 2 /f >nul 2>&1
 echo        Done!
 
 :: 5. Cortana
-echo  [5/23] ปิด Cortana...
+echo  [5/23] Disable Cortana...
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v AllowCortana /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v CortanaConsent /t REG_DWORD /d 0 /f >nul 2>&1
 echo        Done!
 
 :: 6. USB Power Saving
-echo  [6/23] ปิด USB Power Saving...
+echo  [6/23] Disable USB Power Saving...
 powercfg -setacvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0 >nul 2>&1
 powercfg -setactive SCHEME_CURRENT >nul 2>&1
 echo        Done!
 
 :: 7. HPET
-echo  [7/23] ปิด HPET Dynamic Tick...
+echo  [7/23] Disable HPET Dynamic Tick...
 bcdedit /deletevalue useplatformclock >nul 2>&1
 bcdedit /set useplatformtick yes >nul 2>&1
 bcdedit /set disabledynamictick yes >nul 2>&1
@@ -70,7 +70,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\TimerResolution" /v Start /t REG
 echo        Done!
 
 :: 8. Discord
-echo  [8/23] ปิด Discord Hardware Acceleration...
+echo  [8/23] Disable Discord Hardware Acceleration...
 set DISCORD_SETTINGS=%APPDATA%\discord\settings.json
 if exist "%DISCORD_SETTINGS%" (
     powershell -Command "(Get-Content '%DISCORD_SETTINGS%') -replace '\"enableHardwareAcceleration\": true','\"enableHardwareAcceleration\": false' | Set-Content '%DISCORD_SETTINGS%'" >nul 2>&1
@@ -79,7 +79,7 @@ reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v Discord /f >n
 echo        Done!
 
 :: 9. Registry Tweaks
-echo  [9/23] Registry Tweaks ทั้งหมด...
+echo  [9/23] Registry Tweaks...
 reg add "HKCU\Control Panel\Mouse" /v MouseSpeed /t REG_SZ /d 0 /f >nul 2>&1
 reg add "HKCU\Control Panel\Mouse" /v MouseThreshold1 /t REG_SZ /d 0 /f >nul 2>&1
 reg add "HKCU\Control Panel\Mouse" /v MouseThreshold2 /t REG_SZ /d 0 /f >nul 2>&1
@@ -92,28 +92,28 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\54533251-82be
 echo        Done!
 
 :: 10. Nagle Algorithm
-echo  [10/23] ปิด Nagle Algorithm...
+echo  [10/23] Disable Nagle Algorithm...
 powershell -Command "$ifPath='HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces'; $activeIP=(Get-NetIPAddress -AddressFamily IPv4|Where-Object{$_.IPAddress -notlike '169.*' -and $_.IPAddress -ne '127.0.0.1'}|Select-Object -First 1).IPAddress; Get-ChildItem $ifPath|ForEach-Object{$props=Get-ItemProperty $_.PSPath; if($props.DhcpIPAddress -eq $activeIP -or ($props.IPAddress -and $props.IPAddress -contains $activeIP)){Set-ItemProperty -Path $_.PSPath -Name 'TcpAckFrequency' -Value 1 -Type DWord -Force; Set-ItemProperty -Path $_.PSPath -Name 'TCPNoDelay' -Value 1 -Type DWord -Force}}"
 echo        Done!
 
 :: 11. SysMain/Superfetch
-echo  [11/23] ปิด SysMain...
+echo  [11/23] Disable SysMain...
 sc stop SysMain >nul 2>&1
 sc config SysMain start=disabled >nul 2>&1
 echo        Done!
 
 :: 12. Paging File
-echo  [12/23] ตั้ง Paging File อัตโนมัติ...
+echo  [12/23] Set Paging File Auto...
 powershell -Command "$cs=Get-WmiObject Win32_ComputerSystem; $cs.AutomaticManagedPagefile=$true; $cs.Put()" >nul 2>&1
 echo        Done!
 
 :: 13. Memory Compression
-echo  [13/23] ปิด Memory Compression...
+echo  [13/23] Disable Memory Compression...
 powershell -Command "Disable-MMAgent -MemoryCompression -ErrorAction SilentlyContinue" >nul 2>&1
 echo        Done!
 
 :: 14. Process Priority + Fullscreen
-echo  [14/23] FiveM Priority และ Fullscreen Optimizations...
+echo  [14/23] FiveM Priority and Fullscreen Optimizations...
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\FiveM.exe\PerfOptions" /v CpuPriorityClass /t REG_DWORD /d 3 /f >nul 2>&1
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GTA5.exe\PerfOptions" /v CpuPriorityClass /t REG_DWORD /d 3 /f >nul 2>&1
 set FIVEM_EXE=%LOCALAPPDATA%\FiveM\FiveM.exe
@@ -122,8 +122,8 @@ if exist "%FIVEM_EXE%" (
 )
 echo        Done!
 
-:: 15. Windows Services ที่ไม่จำเป็น
-echo  [15/23] ปิด Windows Services ที่ไม่จำเป็น...
+:: 15. Windows Services ????????????
+echo  [15/23] Disable Unnecessary Windows Services...
 sc stop "PrintSpooler" >nul 2>&1 & sc config "PrintSpooler" start=disabled >nul 2>&1
 sc stop "Fax" >nul 2>&1 & sc config "Fax" start=disabled >nul 2>&1
 sc stop "RemoteRegistry" >nul 2>&1 & sc config "RemoteRegistry" start=disabled >nul 2>&1
@@ -135,7 +135,7 @@ sc stop "TabletInputService" >nul 2>&1 & sc config "TabletInputService" start=di
 echo        Done!
 
 :: 16. Startup Programs
-echo  [16/23] ลบ Startup Programs ที่ไม่จำเป็น...
+echo  [16/23] Remove Unnecessary Startup Programs...
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDrive" /f >nul 2>&1
 reg delete "HKLM\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDrive" /f >nul 2>&1
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "Spotify" /f >nul 2>&1
@@ -144,13 +144,13 @@ reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "Steam" /f >n
 echo        Done!
 
 :: 17. DNS - Cloudflare
-echo  [17/23] เปลี่ยน DNS เป็น Cloudflare (1.1.1.1)...
+echo  [17/23] Set DNS to Cloudflare (1.1.1.1)...
 powershell -Command "Get-NetAdapter -Physical|Where-Object{$_.Status -eq 'Up'}|ForEach-Object{Set-DnsClientServerAddress -InterfaceIndex $_.ifIndex -ServerAddresses ('1.1.1.1','1.0.0.1')}" >nul 2>&1
 ipconfig /flushdns >nul 2>&1
 echo        Done!
 
 :: 18. MTU Optimization
-echo  [18/23] ตั้งค่า MTU...
+echo  [18/23] Set MTU...
 powershell -Command "Get-NetAdapter -Physical|Where-Object{$_.Status -eq 'Up'}|ForEach-Object{Set-NetIPInterface -InterfaceIndex $_.ifIndex -NlMtuBytes 1500 -ErrorAction SilentlyContinue}" >nul 2>&1
 netsh interface tcp set global autotuninglevel=normal >nul 2>&1
 netsh interface tcp set global chimney=disabled >nul 2>&1
@@ -159,12 +159,12 @@ netsh interface tcp set global netdma=disabled >nul 2>&1
 echo        Done!
 
 :: 19. GPU Scheduling (Win10 2004+)
-echo  [19/23] เปิด Hardware Accelerated GPU Scheduling...
+echo  [19/23] Enable Hardware Accelerated GPU Scheduling...
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" /v HwSchMode /t REG_DWORD /d 2 /f >nul 2>&1
 echo        Done!
 
-:: 20. ปิด Telemetry
-echo  [20/23] ปิด Windows Telemetry...
+:: 20. ??? Telemetry
+echo  [20/23] Disable Windows Telemetry...
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Privacy" /v TailoredExperiencesWithDiagnosticDataEnabled /t REG_DWORD /d 0 /f >nul 2>&1
@@ -172,13 +172,13 @@ sc stop "DiagTrack" >nul 2>&1
 sc config "DiagTrack" start=disabled >nul 2>&1
 echo        Done!
 
-:: 21. CPU Scheduler - เน้น Foreground
-echo  [21/23] ปรับ CPU Scheduler...
+:: 21. CPU Scheduler - ???? Foreground
+echo  [21/23] Optimize CPU Scheduler...
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl" /v Win32PrioritySeparation /t REG_DWORD /d 26 /f >nul 2>&1
 echo        Done!
 
 :: 22. FiveM Config
-echo  [22/23] ปรับ FiveM Config Files...
+echo  [22/23] Optimize FiveM Config...
 set VIDEOCFG=%LOCALAPPDATA%\FiveM\FiveM.app\citizen\cfg\videocard.cfg
 if exist "%VIDEOCFG%" (
     powershell -Command "(Get-Content '%VIDEOCFG%') -replace 'smaaQuality \d+','smaaQuality 0' -replace 'msaaSamples \d+','msaaSamples 0' -replace 'fxaaEnabled \d+','fxaaEnabled 0' -replace 'motionblur \d+','motionblur 0' -replace 'extendedDistance \d+','extendedDistance 0' -replace 'extendedTextureBudget \d+','extendedTextureBudget 0' | Set-Content '%VIDEOCFG%'" >nul 2>&1
@@ -203,10 +203,10 @@ echo        Done!
 
 echo.
 echo  ------------------------------------------------
-echo  ✓ Win10 v1 (RAM 16-) เสร็จแล้ว!
-echo  - Polling Rate  : ปรับในซอฟต์แวร์เม้า
-echo  - FiveM In-Game : ตรวจสอบ Graphics อีกครั้ง
-echo  - SSD           : ย้าย FiveM ไป SSD ถ้ายังอยู่ใน HDD
+echo  ? Win10 v1 (RAM 16-) Done!
+echo  - Polling Rate  : Adjust in mouse software
+echo  - FiveM In-Game : Check Graphics settings
+echo  - SSD           : Move FiveM to SSD if on HDD
 echo  ------------------------------------------------
 echo.
 pause
