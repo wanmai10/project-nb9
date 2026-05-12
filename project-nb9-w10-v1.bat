@@ -1,5 +1,5 @@
 @echo off
-title Project NB9 - Windows 10 v1 (RAM ???????? 16GB)
+title Project NB9 - Windows 10 v1 (RAM  16GB)
 color 0A
 chcp 65001 >nul
 
@@ -122,7 +122,7 @@ if exist "%FIVEM_EXE%" (
 )
 echo        Done!
 
-:: 15. Windows Services ????????????
+:: 15. Windows Services 
 echo  [15/23] Disable Unnecessary Windows Services...
 sc stop "PrintSpooler" >nul 2>&1
 sc config "PrintSpooler" start=disabled >nul 2>&1
@@ -171,7 +171,7 @@ echo  [19/23] Enable Hardware Accelerated GPU Scheduling...
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" /v HwSchMode /t REG_DWORD /d 2 /f >nul 2>&1
 echo        Done!
 
-:: 20. ??? Telemetry
+:: 20.  Telemetry
 echo  [20/23] Disable Windows Telemetry...
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul 2>&1
@@ -180,7 +180,7 @@ sc stop "DiagTrack" >nul 2>&1
 sc config "DiagTrack" start=disabled >nul 2>&1
 echo        Done!
 
-:: 21. CPU Scheduler - ???? Foreground
+:: 21. CPU Scheduler -  Foreground
 echo  [21/23] Optimize CPU Scheduler...
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl" /v Win32PrioritySeparation /t REG_DWORD /d 26 /f >nul 2>&1
 echo        Done!
@@ -211,7 +211,7 @@ echo        Done!
 
 echo.
 echo  ------------------------------------------------
-echo  ? Win10 v1 (RAM 16-) Done!
+echo   Win10 v1 (RAM 16-) Done!
 echo  - Polling Rate  : Adjust in mouse software
 echo  - FiveM In-Game : Check Graphics settings
 echo  - SSD           : Move FiveM to SSD if on HDD

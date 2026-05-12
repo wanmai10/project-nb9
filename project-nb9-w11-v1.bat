@@ -1,5 +1,5 @@
 @echo off
-title Project NB9 - Windows 11 v1 (RAM ???????? 16GB)
+title Project NB9 - Windows 11 v1 (RAM  16GB)
 color 0A
 chcp 65001 >nul
 
@@ -52,14 +52,14 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplicat
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v LetAppsRunInBackground /t REG_DWORD /d 2 /f >nul 2>&1
 echo        Done!
 
-:: 5. ??? VBS / HVCI (Win11 ????? - ??? FPS ???)
+:: 5.  VBS / HVCI (Win11  -  FPS )
 echo  [5/26] Disable VBS and HVCI...
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v EnableVirtualizationBasedSecurity /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /v Enabled /t REG_DWORD /d 0 /f >nul 2>&1
 bcdedit /set hypervisorlaunchtype off >nul 2>&1
 echo        Done!
 
-:: 6. ??? Xbox Widgets ??? Teams (Win11 ?????)
+:: 6.  Xbox Widgets  Teams (Win11 )
 echo  [6/26] Disable Widgets and Teams...
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Dsh" /v AllowNewsAndInterests /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarDa /t REG_DWORD /d 0 /f >nul 2>&1
@@ -68,7 +68,7 @@ sc config "MicrosoftTeams" start=disabled >nul 2>&1
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "com.squirrel.Teams.Teams" /f >nul 2>&1
 echo        Done!
 
-:: 7. ??? TPM Logging
+:: 7.  TPM Logging
 echo  [7/26] Disable TPM Logging...
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings" /v DisableSendGenericDriverNotFoundToWER /t REG_DWORD /d 1 /f >nul 2>&1
 sc stop "TPM Base Services" >nul 2>&1
@@ -186,7 +186,7 @@ echo  [21/26] Enable Hardware Accelerated GPU Scheduling...
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" /v HwSchMode /t REG_DWORD /d 2 /f >nul 2>&1
 echo        Done!
 
-:: 22. ??? Telemetry
+:: 22.  Telemetry
 echo  [22/26] Disable Windows Telemetry...
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul 2>&1
@@ -222,7 +222,7 @@ echo  [25/26] Network Adapter Settings...
 powershell -Command "Get-NetAdapter -Physical|Where-Object{$_.Status -eq 'Up'}|ForEach-Object{$n=$_.Name; Set-NetAdapterAdvancedProperty -Name $n -DisplayName 'Energy Efficient Ethernet' -DisplayValue 'Disabled' -ErrorAction SilentlyContinue; Set-NetAdapterAdvancedProperty -Name $n -DisplayName 'Interrupt Moderation' -DisplayValue 'Disabled' -ErrorAction SilentlyContinue; Set-NetAdapterAdvancedProperty -Name $n -DisplayName 'Receive Buffers' -DisplayValue '512' -ErrorAction SilentlyContinue; Set-NetAdapterAdvancedProperty -Name $n -DisplayName 'Transmit Buffers' -DisplayValue '512' -ErrorAction SilentlyContinue}"
 echo        Done!
 
-:: 26. ??? Win11 Search Highlights
+:: 26.  Win11 Search Highlights
 echo  [26/26] Disable Search Highlights and Recommendations...
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\SearchSettings" /v IsDynamicSearchBoxEnabled /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v HideRecommendedSection /t REG_DWORD /d 1 /f >nul 2>&1
@@ -231,7 +231,7 @@ echo        Done!
 
 echo.
 echo  ------------------------------------------------
-echo  ? Win11 v1 (RAM 16-) Done!
+echo   Win11 v1 (RAM 16-) Done!
 echo  - Polling Rate  : Adjust in mouse software
 echo  - FiveM In-Game : Check Graphics settings
 echo  - SSD           : Move FiveM to SSD if on HDD

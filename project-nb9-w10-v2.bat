@@ -1,5 +1,5 @@
 @echo off
-title Project NB9 - Windows 10 v2 (RAM ??????? 16GB)
+title Project NB9 - Windows 10 v2 (RAM  16GB)
 color 0A
 chcp 65001 >nul
 
@@ -96,7 +96,7 @@ echo  [10/24] Disable Nagle Algorithm...
 powershell -Command "$ifPath='HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces'; $activeIP=(Get-NetIPAddress -AddressFamily IPv4|Where-Object{$_.IPAddress -notlike '169.*' -and $_.IPAddress -ne '127.0.0.1'}|Select-Object -First 1).IPAddress; Get-ChildItem $ifPath|ForEach-Object{$props=Get-ItemProperty $_.PSPath; if($props.DhcpIPAddress -eq $activeIP -or ($props.IPAddress -and $props.IPAddress -contains $activeIP)){Set-ItemProperty -Path $_.PSPath -Name 'TcpAckFrequency' -Value 1 -Type DWord -Force; Set-ItemProperty -Path $_.PSPath -Name 'TCPNoDelay' -Value 1 -Type DWord -Force}}"
 echo        Done!
 
-:: 11. ??? Paging File (RAM 16GB+ ??? RAM ?????)
+:: 11.  Paging File (RAM 16GB+  RAM )
 echo  [11/24] Disable Paging File...
 powershell -Command "$cs=Get-WmiObject Win32_ComputerSystem; $cs.AutomaticManagedPagefile=$false; $cs.Put(); $pf=Get-WmiObject Win32_PageFileSetting; if($pf){$pf.Delete()}" >nul 2>&1
 echo        Done!
@@ -176,7 +176,7 @@ echo  [20/24] Enable Hardware Accelerated GPU Scheduling...
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" /v HwSchMode /t REG_DWORD /d 2 /f >nul 2>&1
 echo        Done!
 
-:: 21. ??? Telemetry
+:: 21.  Telemetry
 echo  [21/24] Disable Windows Telemetry...
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul 2>&1
@@ -188,7 +188,7 @@ echo  [22/24] Optimize CPU Scheduler...
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl" /v Win32PrioritySeparation /t REG_DWORD /d 26 /f >nul 2>&1
 echo        Done!
 
-:: 23. FiveM Config (v2 - ????????????)
+:: 23. FiveM Config (v2 - )
 echo  [23/24] Optimize FiveM Config...
 set VIDEOCFG=%LOCALAPPDATA%\FiveM\FiveM.app\citizen\cfg\videocard.cfg
 if exist "%VIDEOCFG%" (
@@ -214,7 +214,7 @@ echo        Done!
 
 echo.
 echo  ------------------------------------------------
-echo  ? Win10 v2 (RAM 16+) Done!
+echo   Win10 v2 (RAM 16+) Done!
 echo  - Polling Rate  : Adjust in mouse software
 echo  - FiveM In-Game : Check Graphics settings
 echo  - SSD           : Move FiveM to SSD if on HDD

@@ -123,7 +123,7 @@ sc stop SysMain >nul 2>&1
 sc config SysMain start=disabled >nul 2>&1
 echo        Done!
 
-:: 15. Paging File ?????????
+:: 15. Paging File 
 echo  [15/25] Set Paging File Auto...
 powershell -Command "$cs=Get-WmiObject Win32_ComputerSystem; $cs.AutomaticManagedPagefile=$true; $cs.Put()" >nul 2>&1
 echo        Done!
@@ -187,7 +187,7 @@ echo  [21/25] Enable Hardware Accelerated GPU Scheduling...
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" /v HwSchMode /t REG_DWORD /d 2 /f >nul 2>&1
 echo        Done!
 
-:: 22. ??? Telemetry
+:: 22.  Telemetry
 echo  [22/25] Disable Windows Telemetry...
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul 2>&1
@@ -199,7 +199,7 @@ echo  [23/25] Optimize CPU Scheduler...
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl" /v Win32PrioritySeparation /t REG_DWORD /d 26 /f >nul 2>&1
 echo        Done!
 
-:: 24. FiveM Config - ???????????? Notebook
+:: 24. FiveM Config -  Notebook
 echo  [24/25] Optimize FiveM Config (Notebook Mode)...
 set VIDEOCFG=%LOCALAPPDATA%\FiveM\FiveM.app\citizen\cfg\videocard.cfg
 if exist "%VIDEOCFG%" (
@@ -225,7 +225,7 @@ echo        Done!
 
 echo.
 echo  ------------------------------------------------
-echo  ? Win10 vN (Notebook) Done!
+echo   Win10 vN (Notebook) Done!
 echo  ! Always plug in charger when gaming
 echo  - Polling Rate  : Adjust in mouse software
 echo  - FiveM In-Game : Check Graphics settings

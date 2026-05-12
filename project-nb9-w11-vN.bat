@@ -60,7 +60,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorE
 bcdedit /set hypervisorlaunchtype off >nul 2>&1
 echo        Done!
 
-:: 6. Xbox Widgets ??? Teams
+:: 6. Xbox Widgets  Teams
 echo  [6/28] Disable Widgets and Teams...
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Dsh" /v AllowNewsAndInterests /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarDa /t REG_DWORD /d 0 /f >nul 2>&1
@@ -140,7 +140,7 @@ sc stop SysMain >nul 2>&1
 sc config SysMain start=disabled >nul 2>&1
 echo        Done!
 
-:: 17. Paging File ?????????
+:: 17. Paging File 
 echo  [17/28] Set Paging File Auto...
 powershell -Command "$cs=Get-WmiObject Win32_ComputerSystem; $cs.AutomaticManagedPagefile=$true; $cs.Put()" >nul 2>&1
 echo        Done!
@@ -212,7 +212,7 @@ echo  [25/28] Optimize CPU Scheduler...
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl" /v Win32PrioritySeparation /t REG_DWORD /d 26 /f >nul 2>&1
 echo        Done!
 
-:: 26. FiveM Config - ???????????? Notebook
+:: 26. FiveM Config -  Notebook
 echo  [26/28] Optimize FiveM Config (Notebook Mode)...
 set VIDEOCFG=%LOCALAPPDATA%\FiveM\FiveM.app\citizen\cfg\videocard.cfg
 if exist "%VIDEOCFG%" (
@@ -245,7 +245,7 @@ echo        Done!
 
 echo.
 echo  ------------------------------------------------
-echo  ? Win11 vN (Notebook) Done!
+echo   Win11 vN (Notebook) Done!
 echo  ! Always plug in charger when gaming
 echo  - Polling Rate  : Adjust in mouse software
 echo  - FiveM In-Game : Check Graphics settings
