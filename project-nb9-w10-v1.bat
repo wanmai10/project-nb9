@@ -124,14 +124,22 @@ echo        Done!
 
 :: 15. Windows Services ????????????
 echo  [15/23] Disable Unnecessary Windows Services...
-sc stop "PrintSpooler" >nul 2>&1 & sc config "PrintSpooler" start=disabled >nul 2>&1
-sc stop "Fax" >nul 2>&1 & sc config "Fax" start=disabled >nul 2>&1
-sc stop "RemoteRegistry" >nul 2>&1 & sc config "RemoteRegistry" start=disabled >nul 2>&1
-sc stop "WSearch" >nul 2>&1 & sc config "WSearch" start=disabled >nul 2>&1
-sc stop "DiagTrack" >nul 2>&1 & sc config "DiagTrack" start=disabled >nul 2>&1
-sc stop "dmwappushservice" >nul 2>&1 & sc config "dmwappushservice" start=disabled >nul 2>&1
-sc stop "MapsBroker" >nul 2>&1 & sc config "MapsBroker" start=disabled >nul 2>&1
-sc stop "TabletInputService" >nul 2>&1 & sc config "TabletInputService" start=disabled >nul 2>&1
+sc stop "PrintSpooler" >nul 2>&1
+sc config "PrintSpooler" start=disabled >nul 2>&1
+sc stop "Fax" >nul 2>&1
+sc config "Fax" start=disabled >nul 2>&1
+sc stop "RemoteRegistry" >nul 2>&1
+sc config "RemoteRegistry" start=disabled >nul 2>&1
+sc stop "WSearch" >nul 2>&1
+sc config "WSearch" start=disabled >nul 2>&1
+sc stop "DiagTrack" >nul 2>&1
+sc config "DiagTrack" start=disabled >nul 2>&1
+sc stop "dmwappushservice" >nul 2>&1
+sc config "dmwappushservice" start=disabled >nul 2>&1
+sc stop "MapsBroker" >nul 2>&1
+sc config "MapsBroker" start=disabled >nul 2>&1
+sc stop "TabletInputService" >nul 2>&1
+sc config "TabletInputService" start=disabled >nul 2>&1
 echo        Done!
 
 :: 16. Startup Programs
